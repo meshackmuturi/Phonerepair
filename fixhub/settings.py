@@ -34,16 +34,27 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'repairs',           # Your FixHub app
-    'corsheaders',       # CORS headers for API
+    "daphne",       # ASGI server
+    "channels",     # WebSocket support
+    "chat",         # your app (where consumers.py lives)
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
+ASGI_APPLICATION = "fixhub.asgi.application"
 
+# Redis channel layer
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],  # Redis must be running locally
+        },
+    },
+}
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',              # Must be here (line 2)
@@ -151,7 +162,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Alternative: Allow specific origins only (for production)
 # CORS_ALLOWED_ORIGINS = [
 #     "http://localhost:3000",
-#     "http://127.0.0.1:8000",
+#     "https://meshackmuturi.pythonanywhere.com",
 # ]
 
 # Allow credentials (cookies, authorization headers)

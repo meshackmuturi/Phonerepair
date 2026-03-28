@@ -277,7 +277,7 @@ def send_notification(request):
                 'success': True,
                 'message': 'Notification logged'
             })
-            
+           
         except Exception as e:
             return JsonResponse({
                 'success': False,
