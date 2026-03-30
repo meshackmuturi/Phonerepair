@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('dashboard/', views.dashboard),  # example endpoint
+    path("api/customers/", views.register_customer, name="register_customer"),
 ]

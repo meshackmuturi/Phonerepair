@@ -320,3 +320,14 @@ def recent_activity(request):
             'success': False,
             'error': str(e)
         }, status=500)
+        
+        @csrf_exempt
+def register_customer(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        customer = Customer.objects.create(
+            full_name=data["full_name"],
+            phone_number=data["phone_number"],
+            email=data.get("email", "")
+        )
+        return JsonResponse({"id": customer.id, "status": "success"})

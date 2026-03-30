@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-9c76o!)@sqwv7tb$(w%o_d$43m-kjk+weu*3uj!3_)eyk$0+@#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://meshackmuturi.pythonanywhere.com/', 'localhost']
 
 
 # Application definition
@@ -36,7 +36,9 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     "daphne",       # ASGI server
     "channels",     # WebSocket support
-    "chat",         # your app (where consumers.py lives)
+    "chat",   
+    "repairs",
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -65,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'fixhub.urls'
 
@@ -89,7 +92,7 @@ WSGI_APPLICATION = 'fixhub.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-database_url=os.getenv('DATABASE_URL')
+database_url=os.getenv('DATABASE_URL','postgresql://fixhub_db_hm56_user:fkTM0pvN7NIchdmR2fBycpStFfy8NE6D@dpg-d719p2pr0fns73cdt5sg-a.oregon-postgres.render.com/fixhub_db_hm56')
 if database_url:
     import dj_database_url
     DATABASES = {
